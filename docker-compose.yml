@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  strapi:
+    image: strapi/strapi
+    container_name: strapi
+    ports:
+      - 1337:1337
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=holago
+      - DATABASE_USERNAME=HOLAGO
+      - DATABASE_PASSWORD=BHwbFjnXKrDsRnT2
+    depends_on:
+      - postgres
+    volumes:
+      - ./app:/srv/app
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=strapi
+      - POSTGRES_PASSWORD=strapi
+      - POSTGRES_DB=strapi
+    volumes:
+      - ./data:/var/lib/postgresql/data
